@@ -9,7 +9,7 @@
             <span>Password: </span>
             <input type="password" v-model="form.password" placeholder="กรอกรหัสผ่าน">
         </div>
-        <button @click="login" >login</button>
+        <button @click="login">login</button>
         <button @click="register">register</button>
     </div>
   
@@ -31,7 +31,7 @@ export default {
         async login(){
             if (this.form.username!=='' && this.form.password!=='') {
                 this.$swal("ล็อกอินสำเร็จ","ยินดีต้อนรับ", "success")
-                this.$router.push("/checkSerial")
+                this.$router.push("/check-serial")
             }else if(this.form.username==='' && this.form.password===""){
                 this.$swal("กรุณากรอกข้อมูล","","error")
             }

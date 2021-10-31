@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Header></Header>
         <h1>Register</h1>
         <div>
             <span>ชื่อ: </span>
@@ -29,7 +28,7 @@
         </div>
         <div>
             <span>เบอร์โทร: </span>
-            <input type="text" v-model="form.tel" placeholder="กรอกเบอร์โทรศัพท์">
+            <input type="text" v-model="form.phone" placeholder="กรอกเบอร์โทรศัพท์">
         </div>
         <button @click="register">register</button>
         <button @click="clearForm">cancel</button>
@@ -47,7 +46,7 @@ export default {
                 address:'',
                 sex:'',
                 salary:'',
-                tel:'',
+                phone:'',
             },
             sexs: [
                 {
@@ -67,7 +66,7 @@ export default {
     },
     methods:{
         async register(){
-            if (this.form.name!='' && this.form.email!=='' && this.form.address!=='' && this.form.sex!=='' && this.form.salary!=='' && this.form.tel!=='') {
+            if (this.form.name!='' && this.form.email!=='' && this.form.address!=='' && this.form.sex!=='' && this.form.salary!=='' && this.form.phone!=='') {
                 this.$swal("สมัครเสร็จสิ้น", "","success")
                 this.$router.push("/")
             }else{
@@ -82,7 +81,7 @@ export default {
                 address:'',
                 sex:'',
                 salary:'',
-                tel:'',
+                phone:'',
             }
         }
     }
@@ -90,10 +89,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1{
-    background-color:DodgerBlue;
-}
-.bla{
-    background-color: pink;
-}
+
 </style>>
