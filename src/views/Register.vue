@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Header></Header>
         <h1>Register</h1>
         <div>
             <span>ชื่อ: </span>
@@ -36,6 +37,7 @@
 </template>
 
 <script>
+import Header from '@/components/Header.vue'
 export default {
     data(){
         return{
@@ -60,10 +62,18 @@ export default {
         }
         
     },
+    components:{
+        Header
+    },
     methods:{
         async register(){
-            this.$swal("สมัครเสร็จสิ้น", "","success")
-            this.clearForm()
+            if (this.form.name!='' && this.form.email!=='' && this.form.address!=='' && this.form.sex!=='' && this.form.salary!=='' && this.form.tel!=='') {
+                this.$swal("สมัครเสร็จสิ้น", "","success")
+                this.$router.push("/")
+            }else{
+                this.$swal("กรุณากรอกข้อมูลให้ครบ","","error")
+            }
+            
         },
         clearForm(){
             this.form= {
