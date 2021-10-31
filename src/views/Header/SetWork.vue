@@ -45,7 +45,17 @@ export default {
 
         },
         createBill(){
-            this.$router.push('/bill')
+            this.$swal({
+                title: 'ต้องการจะสร้างใบเสร็จหรือไม่?',
+                showCancelButton: true,
+                confirmButtonText: 'ใช่',
+                cancelButtonText: 'ไม่'
+            }).then((r)=>{
+                if(r.isConfirmed){
+                    this.$router.push('/bill')
+                }
+            })
+            
         }
     }
 }

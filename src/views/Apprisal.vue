@@ -16,7 +16,16 @@ export default {
     },
     methods:{
         async confirm(){
-            this.$router.push("/set-work")
+            this.$swal({
+                title: 'ต้องการจะส่งซ่อมหรือไม่?',
+                showCancelButton: true,
+                confirmButtonText: 'ใช่',
+                cancelButtonText: 'ไม่'
+            }).then((r)=>{
+                if(r.isConfirmed){
+                    this.$router.push('/set-work')
+                }
+            })
         },
         async cancel(){
             this.$router.push("/check-serial")

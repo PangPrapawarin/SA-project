@@ -16,7 +16,7 @@
 <script>
 import Header from '@/components/Header.vue'
 import { required, minLength} from 'vuelidate/lib/validators'
-
+import WarrantyStore from '@/store/Warranty'
 export default {
     data(){
         return{
@@ -38,10 +38,16 @@ export default {
             if (this.serialNumber.length<10) {
                 this.errors = true
             }else if(this.serialNumber.length>=10){
-                this.$swal("ข้อมูลถูกต้อง","","success")
-                this.$router.push("/apprisal")
+                let warranties = await WarrantyStore.dispatch("fetchWarranty")
+                warranties.data.forEach(warranty=>{
+                    if(this.serialNumber==warranty.serial_number){
+                        this.$swal("ข้อมูลถูกต้อง","","success")
+                        this.$router.push("/apprisal")
+                    }else{
+                        this.$swal("ไม่มีรหัสสินค้านี้","","error")
+                    }
+                });
             }
-            
         }
     }
 }

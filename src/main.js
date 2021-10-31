@@ -11,6 +11,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 import Vuelidate from 'vuelidate'
 
+
 Vue.use(VueSweetalert2);
 
 Vue.config.productionTip = false
