@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Header></Header>
         <h1>เช็ครหัสสินค้า</h1>
         <span>serial number: </span>
         <input type="text" v-model="serialNumber" placeholder="กรอกรหัสสินค้า">
@@ -14,7 +13,6 @@
 </template>
 
 <script>
-import Header from '@/components/Header.vue'
 import { required, minLength} from 'vuelidate/lib/validators'
 import WarrantyStore from '@/store/Warranty'
 export default {
@@ -29,9 +27,6 @@ export default {
             required,
             minLength: minLength(10)
         }
-    },
-    components:{
-        Header
     },
     methods:{
         async check(){

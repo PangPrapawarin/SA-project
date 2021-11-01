@@ -1,8 +1,16 @@
 <template>
     <div class="nav">
-        <a href="/" class="btn btn-info btn-lg" >
-          <span class="glyphicon glyphicon-log-out"></span> Log out
+      <div>
+        <a href="/#/check-serial" class="left">
+          <span>Check serial number</span>
         </a>
+      </div>
+      <div>
+        <a href="/" class="right" >
+          <span>Log out</span> 
+        </a>
+      </div>
+      
     </div>
 </template>
 <script>
@@ -11,7 +19,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-a{
+a.right{
   position: absolute; right: 20px;
+}
+a.left{
+  position: absolute; left: 20px;
 }
 </style>

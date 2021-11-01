@@ -2,6 +2,28 @@
     <div>
         <Header></Header>
         <h1>จ่ายงาน</h1>
+        <div>
+            <span>พนักงานคนที่ 1 : </span>
+            <select>
+                <option v-for="(employee, index) in employees" :key="index">{{employee.name}}</option>
+            </select>
+        </div>
+        
+        
+        <div>
+            <span>พนักงานคนที่ 2 : </span>
+            <select>
+                <option v-for="(employee, index) in employees" :key="index">{{employee.name}}</option>
+            </select>
+        </div>
+
+        <div>
+            <span>พนักงานคนที่ 3 : </span>
+            <select>
+                <option v-for="(employee, index) in employees" :key="index">{{employee.name}}</option>
+            </select>
+        </div>
+
         <table>
             <thead>
                 <tr>
@@ -34,7 +56,16 @@ export default {
     },
     data(){
         return{
-            employees:[],
+            employees:[
+                {id:'1', 
+                name:'Pang',
+                email:'prapawarin.k@ku.th',
+                sex:'Female',
+                phone:'094-558-9164'
+                },
+                {id:'2', name:'Bank'},
+                {id:'3', name:'Ploy'}
+            ],
         }
     },
     components:{
