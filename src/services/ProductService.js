@@ -3,11 +3,10 @@ import Axios from "axios"
 const api_endpoint = process.env.VUE_APP_EHRM_ENDPOINT || "http://localhost:8000"
 
 export default{
-    async getWarranty() {
-        let url = `${api_endpoint}/api/warranty/show`;
+    async getProduct() {
+        let url = `${api_endpoint}/api/product/show`;
         try{
             let res = await Axios.get(url)
-            console.log(res);
             return res
         }catch (e){
 

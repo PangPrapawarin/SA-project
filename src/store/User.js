@@ -22,6 +22,7 @@ export default new Vuex.Store({
         async fetchUser({ commit }) {
             let payload = await UserService.getUser();
             commit("fetch", payload)
+            return payload.data
         },
     }
 })

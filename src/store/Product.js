@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import WarrantyService from '@/services/WarrantyService'
+import ProductService from '@/services/ProductService'
 
 Vue.use(Vuex)
 
@@ -10,7 +10,7 @@ export default new Vuex.Store({
     },
     
     getters: {
-        warranties: (state) => state.data
+        products: (state) => state.data
     },
 
     mutations: {
@@ -19,10 +19,9 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        async fetchWarranty({ commit }) {
-            let payload = await WarrantyService.getWarranty();
+        async fetchProduct({ commit }) {
+            let payload = await ProductService.getProduct();
             commit("fetch", payload)
-            console.log(payload.data);
             return payload.data
         },
     }

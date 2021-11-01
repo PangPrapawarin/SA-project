@@ -2,46 +2,29 @@
     <div>
         <Header></Header>
         <h1>จ่ายงาน</h1>
-        <div>
-            <span>พนักงานคนที่ 1 : </span>
-            <select>
-                <option v-for="(employee, index) in employees" :key="index">{{employee.name}}</option>
-            </select>
-        </div>
-        
-        
-        <div>
-            <span>พนักงานคนที่ 2 : </span>
-            <select>
-                <option v-for="(employee, index) in employees" :key="index">{{employee.name}}</option>
-            </select>
-        </div>
-
-        <div>
-            <span>พนักงานคนที่ 3 : </span>
-            <select>
-                <option v-for="(employee, index) in employees" :key="index">{{employee.name}}</option>
-            </select>
-        </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>ชื่อ</th>
-                    <th>เพศ</th>
-                    <th>อีเมลล์</th>
-                    <th>เบอร์โทร</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(employee, index) in employees" :key="index">
-                    <td>{{employee.name}}</td>
-                    <td>{{employee.sex}}</td>
-                    <td>{{employee.email}}</td>
-                    <td>{{employee.phone}}</td>
-                </tr>
-            </tbody>
-        </table>
+        <b-table
+            :items="this.users"
+            :fields="fields"
+            :select-mode="selectMode"
+            responsive="sm"
+            ref="selectableTable"
+            selectable
+            @row-selected="onRowSelected">
+            <template #cell(selected)="{ rowSelected }">
+                <template v-if="rowSelected">
+                    <span aria-hidden="true">&check;</span>
+                    <span class="sr-only">เลือก</span>
+                </template>
+                <template v-else>
+                    <span aria-hidden="true">&nbsp;</span>
+                    <span class="sr-only">ยังไม่เลือก</span>
+                </template>
+            </template>
+        </b-table>
+        <p>
+            <b-button size="sm" @click="selectAllRows">เลือกทั้งหมด</b-button>
+            <b-button size="sm" @click="clearSelected">ยกเลิกการเลือกทั้งหมด</b-button>
+        </p>
         <button @click="createBill">สร้างบิล</button>
     </div>
     
@@ -49,6 +32,7 @@
 
 <script>
 import Header from '@/components/Header.vue'
+import UserStore from '@/store/User'
 
 export default {
     created(){
@@ -56,24 +40,29 @@ export default {
     },
     data(){
         return{
-            employees:[
-                {id:'1', 
-                name:'Pang',
-                email:'prapawarin.k@ku.th',
-                sex:'Female',
-                phone:'094-558-9164'
-                },
-                {id:'2', name:'Bank'},
-                {id:'3', name:'Ploy'}
-            ],
+            employees:{
+                id:'', 
+                name:'',
+                email:'',
+                sex:'',
+                phone:''
+            },
+            fields: ['selected', 'id', 'name', 'email', 'sex', 'phone'],
+            selectMode: 'multi',
+            selected: [{
+                id:'',
+                name:'',
+            }],
+            users:[]
         }
     },
+    
     components:{
         Header
     },
     methods:{
         async fetchUser(){
-
+            this.users = await UserStore.dispatch('fetchUser')
         },
         createBill(){
             this.$swal({
@@ -87,7 +76,17 @@ export default {
                 }
             })
             
-        }
+        },
+        onRowSelected(items) {
+            this.selected = items
+            console.log(this.selected);
+        },
+        selectAllRows() {
+            this.$refs.selectableTable.selectAllRows()
+        },
+        clearSelected() {
+            this.$refs.selectableTable.clearSelected()
+        },
     }
 }
 </script>

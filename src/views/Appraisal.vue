@@ -2,8 +2,8 @@
     <div>
         <Header></Header>
         <h1>รายการซ่อม</h1>
-        <p>การรับประกัน : {{warranty}}</p>
         <h3>รายละเอียดสินค้า</h3>
+        <p>การรับประกัน : {{warranty}}</p>
         <p>ชื่อ : {{product.name}}</p>
         <p>สี : {{product.color}}</p>
         <p>รุ่น : {{product.model}}</p>
