@@ -36,7 +36,7 @@ export default {
                 name:'',
                 model:'',
                 color:'',
-                serial_number:'AD00000001'
+                serial_number:this.$route.params.id
             },
             warranty:'',
             detail:'',
@@ -94,11 +94,6 @@ export default {
                     cancelButtonText: 'ไม่'
                 }).then((r)=>{
                     if(r.isConfirmed){
-                        let payload = {
-                            id:this.product.id,
-                            detail: this.detail
-                        }
-                        this.putData(payload)
                         this.$router.push('/set-work')
                     }
                 })
@@ -110,8 +105,8 @@ export default {
         async cancel(){
             this.$router.push("/check-serial")
         },
-        async putData(payload){
-            await AppraisalStore.dispatch('updateDetail', payload)
+        loadOnce:function(){
+            location.reload();
         }
     }
 }

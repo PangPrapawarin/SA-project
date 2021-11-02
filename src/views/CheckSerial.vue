@@ -48,7 +48,7 @@ export default {
                     if(this.serialNumber===product.serial_number){
                         this.valid=false
                         this.id=product.id
-                        this.$swal("รหัสสินค้าถูกต้อง","","success")
+                        this.$swal("รหัสสินค้าถูกต้อง",this.serialNumber,"success")
                         return false
                     }
                     this.$swal("ไม่มีรหัสสินค้านี้","","error")
@@ -57,8 +57,9 @@ export default {
         },
         async submit(){
             if (this.price!=='' && this.detail!=='') {
-                this.putData(this.id,this.price, this.detail)
-                this.$router.push('/appraisal')
+                await this.putData(this.id,this.price, this.detail)
+                this.$router.push('/appraisal/'+ this.serialNumber)
+                this.$swal("กรอกข้อมูลเรียบร้อย","","success" )
             }else if(this.valid){
                 this.$swal("กรุณาเช็ครหัสสินค้าก่อน","","error")
             }
@@ -73,7 +74,8 @@ export default {
                 detail: detail,
             }
             await AppraisalStore.dispatch('updateAppraisal', payload)
-        }
+        },
+        
     }
 }
 </script>
