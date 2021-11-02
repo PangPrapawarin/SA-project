@@ -8,8 +8,8 @@
         <p>สี : {{product.color}}</p>
         <p>รุ่น : {{product.model}}</p>
         <p>รหัสสินค้า : {{product.serial_number}}</p>
-        <span>รายละเอียดการซ่อม : </span>
-        <input type="text" v-model="detail">
+        <p>รายละเอียดการซ่อม : {{detail}}</p>
+        <p>ราคา : {{price}}</p>
         <div>
             <button @click="confirm">ส่งซ่อม</button>
             <button @click="cancel">ยกเลิกส่งซ่อม</button>
@@ -21,10 +21,12 @@
 import Header from '@/components/Header.vue'
 import ProductStore from '@/store/Product'
 import WarrantyStore from '@/store/Warranty'
+import AppraisalStore from '@/store/Appraisal'
 
 export default {
     created(){
         this.fetchProduct()
+        this.fetchAppraisal()
     },
     data(){
         
@@ -37,13 +39,23 @@ export default {
                 serial_number:'AD00000001'
             },
             warranty:'',
-            detail:''
+            detail:'',
+            price:''
         }
     },
     components:{
         Header
     },
     methods:{
+        async fetchAppraisal(){
+            this.appraisals = await AppraisalStore.dispatch("fetchApprisal")
+            this.appraisals.forEach(appraisal =>{
+                if (this.product.id==appraisal.warranties_id) {
+                    this.price=appraisal.price
+                    this.detail=appraisal.detail
+                }
+            })
+        },
         async fetchProduct(){
             this.products = await ProductStore.dispatch("fetchProduct")
             this.products.forEach(product => {
@@ -64,6 +76,7 @@ export default {
                     
                     if(dateCheck <= dateTo && dateCheck >= dateFrom){
                         this.warranty = 'อยู่ในการรับประกัน'
+                        this.price = 'ไม่เสียค่าใช้จ่าย'
                     }else{
                         this.warranty = 'ไม่อยู่ในการรับประกัน'
                     }
@@ -81,6 +94,11 @@ export default {
                     cancelButtonText: 'ไม่'
                 }).then((r)=>{
                     if(r.isConfirmed){
+                        let payload = {
+                            id:this.product.id,
+                            detail: this.detail
+                        }
+                        this.putData(payload)
                         this.$router.push('/set-work')
                     }
                 })
@@ -91,6 +109,9 @@ export default {
         },
         async cancel(){
             this.$router.push("/check-serial")
+        },
+        async putData(payload){
+            await AppraisalStore.dispatch('updateDetail', payload)
         }
     }
 }
