@@ -37,6 +37,7 @@
 
 <script>
 import Header from '@/components/Header.vue'
+import UserStore from '@/store/User'
 export default {
     data(){
         return{
@@ -67,6 +68,15 @@ export default {
     methods:{
         async register(){
             if (this.form.name!='' && this.form.email!=='' && this.form.address!=='' && this.form.sex!=='' && this.form.salary!=='' && this.form.phone!=='') {
+                let newUser ={
+                    name:this.form.name,
+                    address:this.form.address,
+                    sex:this.form.sex,
+                    salary:this.form.salary,
+                    phone:this.form.phone,
+                    email:this.form.email,
+                }
+                await UserStore.dispatch('createUser', newUser)
                 this.$swal("สมัครเสร็จสิ้น", "","success")
                 this.$router.push("/")
             }else{
@@ -74,6 +84,7 @@ export default {
             }
             
         },
+
         clearForm(){
             this.form= {
                 name:'',
@@ -83,7 +94,7 @@ export default {
                 salary:'',
                 phone:'',
             }
-        }
+        },
     }
 }
 </script>

@@ -7,7 +7,6 @@ export default{
         let url = `${api_endpoint}/api/warranty/show`;
         try{
             let res = await Axios.get(url)
-            console.log(res);
             return res
         }catch (e){
 

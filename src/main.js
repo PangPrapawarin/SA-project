@@ -27,6 +27,7 @@ Vue.use(VueAxios, axios)
 Vue.use(Vuelidate)
 
 
+
 new Vue({
   router,
   store,

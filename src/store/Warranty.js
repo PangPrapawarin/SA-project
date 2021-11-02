@@ -22,7 +22,6 @@ export default new Vuex.Store({
         async fetchWarranty({ commit }) {
             let payload = await WarrantyService.getWarranty();
             commit("fetch", payload)
-            console.log(payload.data);
             return payload.data
         },
     }
