@@ -15,15 +15,21 @@
 </template>
 <script>
 import Header from '@/components/Header.vue'
+import ProductStore from '@/store/Product'
 
 export default {
+    created(){
+        this.test()
+        this.fetchProduct()
+    },
     data(){
+        
         return{
             product:{
                 name:'',
                 model:'',
                 color:'',
-                serial_number:''
+                serial_number:'AD00000001'
             },
             warranty:'',
             detail:''
@@ -33,6 +39,20 @@ export default {
         Header
     },
     methods:{
+        async test(){
+            let test = this.items;
+            console.log(test);
+        },
+        async fetchProduct(){
+            this.products = await ProductStore.dispatch("fetchProduct")
+            this.products.forEach(product => {
+                if(this.product.serial_number===product.serial_number){
+                    this.product.name = product.product_name
+                    this.product.model = product.model
+                    this.product.color = product.color
+                }
+            });
+        },
         async confirm(){
             this.$swal({
                 title: 'ต้องการจะส่งซ่อมหรือไม่?',

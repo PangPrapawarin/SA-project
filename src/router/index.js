@@ -24,12 +24,14 @@ const routes = [
   {
     path: '/check-serial',
     name: 'CheckSerial',
-    component: Check
+    component: Check,
+    props:true
   },
   {
     path: '/appraisal',
     name: 'Appraisal',
-    component: Appraisal
+    component: Appraisal,
+    props:true
   },
   {
     path: '/check-work',

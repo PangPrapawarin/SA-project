@@ -35,10 +35,9 @@ export default {
             this.products.every(product => {
                     if(this.serialNumber===product.serial_number){
                         this.$swal("ข้อมูลถูกต้อง","","success")
-                        this.$router.push("/appraisal")
+                        this.$router.push('/appraisal')
                         return false
                     }
-                    console.log('f');
                     this.$swal("ไม่มีรหัสสินค้านี้","","error")
                     return true
                 });
@@ -48,7 +47,7 @@ export default {
 </script>
 
 <style>
-span.error{
+/* span.error{
     color:red;
-}
+} */
 </style>
