@@ -94,7 +94,7 @@ export default {
                     cancelButtonText: 'ไม่'
                 }).then((r)=>{
                     if(r.isConfirmed){
-                        this.$router.push('/set-work')
+                        this.$router.push('/set-work/'+this.product.id)
                     }
                 })
             }else{

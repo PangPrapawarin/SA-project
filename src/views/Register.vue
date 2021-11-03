@@ -46,16 +46,14 @@ export default {
                 email:'',
                 address:'',
                 sex:'',
-                salary:'',
+                salary:0,
                 phone:'',
             },
             sexs: [
                 {
-                    id: 1,
                     name: "male"
                 },
                 {
-                    id: 2,
                     name: "female"
                 }
             ]
@@ -74,8 +72,9 @@ export default {
                     sex:this.form.sex,
                     salary:this.form.salary,
                     phone:this.form.phone,
-                    email:this.form.email,
+                    email:this.form.email
                 }
+                console.log(newUser.name);
                 await UserStore.dispatch('createUser', newUser)
                 this.$swal("สมัครเสร็จสิ้น", "","success")
                 this.$router.push("/")

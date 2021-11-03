@@ -39,12 +39,12 @@ const routes = [
     component: CheckWork
   },
   {
-    path: '/set-work',
+    path: '/set-work/:id',
     name: 'SetWork',
     component: SetWork
   },
   {
-    path: '/bill',
+    path: '/bill/:id',
     name: 'Bill',
     component: Bill
   }

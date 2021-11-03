@@ -25,6 +25,12 @@
             <b-button size="sm" @click="selectAllRows">เลือกทั้งหมด</b-button>
             <b-button size="sm" @click="clearSelected">ยกเลิกการเลือกทั้งหมด</b-button>
         </p>
+        <div>
+            <span>วันที่เริ่มซ่อม : </span>
+            <input type="date" v-model="start_fix">
+            <span>วันที่สิ้นสุดการซ่อม : </span>
+            <input type="date" v-model="end_fix">
+        </div>
         <button @click="createBill">สร้างบิล</button>
     </div>
     
@@ -50,7 +56,10 @@ export default {
             fields: ['selected', 'id', 'name', 'email', 'sex', 'phone'],
             selectMode: 'multi',
             selected: [],
-            users:[]
+            users:[],
+            appraisalId:this.$route.params.id,
+            start_fix:'',
+            end_fix:''
         }
     },
     
@@ -70,7 +79,7 @@ export default {
                     cancelButtonText: 'ไม่'
                 }).then((r)=>{
                     if(r.isConfirmed){
-                        this.$router.push('/bill')
+                        this.$router.push('/bill/' + this.appraisalId)
                     }
                 })
             }else{
