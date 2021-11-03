@@ -16,6 +16,9 @@ export default new Vuex.Store({
     mutations: {
         fetch(state, payload) {
             state.data = payload.data;
+        },
+        push(state, payload){
+            state.data = payload
         }
     },
     actions: {
@@ -23,6 +26,10 @@ export default new Vuex.Store({
             let payload = await InvoiceService.getInvoice();
             commit("fetch", payload)
             return payload.data
+        },
+        async createInvoice({ commit }, invoice){
+            let payload = await UserService.createInvoice(invoice);
+            commit("push", payload.data)
         },
     }
 })

@@ -51,10 +51,10 @@ export default {
             },
             sexs: [
                 {
-                    name: "male"
+                    name: "Male"
                 },
                 {
-                    name: "female"
+                    name: "Female"
                 }
             ]
         }
@@ -74,7 +74,6 @@ export default {
                     phone:this.form.phone,
                     email:this.form.email
                 }
-                console.log(newUser.name);
                 await UserStore.dispatch('createUser', newUser)
                 this.$swal("สมัครเสร็จสิ้น", "","success")
                 this.$router.push("/")

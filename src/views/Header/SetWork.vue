@@ -29,7 +29,7 @@
             <span>วันที่เริ่มซ่อม : </span>
             <input type="date" v-model="start_fix">
             <span>วันที่สิ้นสุดการซ่อม : </span>
-            <input type="date" v-model="end_fix">
+            <input type="date" v-model="end_fix" :disabled-date="validDate">
         </div>
         <button @click="createBill">สร้างบิล</button>
     </div>
@@ -39,6 +39,7 @@
 <script>
 import Header from '@/components/Header.vue'
 import UserStore from '@/store/User'
+import InvoiceStore from '@/store/Invoice'
 
 export default {
     created(){
@@ -71,7 +72,7 @@ export default {
             this.users = await UserStore.dispatch('fetchUser')
         },
         createBill(){
-            if (this.selected.length !== 0) {
+            if (this.selected.length !== 0 && this.selected.length<=3 && this.start_fix!='' && this.end_fix!='') {
                 this.$swal({
                     title: 'ต้องการจะสร้างใบเสร็จหรือไม่?',
                     showCancelButton: true,
@@ -82,7 +83,13 @@ export default {
                         this.$router.push('/bill/' + this.appraisalId)
                     }
                 })
-            }else{
+            }else if((this.start_fix=='' || this.end_fix=='') && this.selected.length !== 0){
+                this.$swal("กรุณากรอกวันที่","","error")
+            }
+            else if(this.selected.length>3){
+                this.$swal("เลือกพนักงานเกินกำหนด","มากกว่า 3 คน","error")
+            }
+            else{
                 this.$swal("กรุณาเลือกพนักงาน", "อย่างน้อย 1 คน", "error")
             }
             
@@ -90,6 +97,10 @@ export default {
         },
         onRowSelected(items) {
             this.selected = items
+            if(this.selected.length > 3){
+                this.$swal("เลือกพนักงานเกินกำหนด","ไม่เกิน 3 คน","error")
+            }
+            console.log(this.selected);
         },
         selectAllRows() {
             this.$refs.selectableTable.selectAllRows()
@@ -97,6 +108,25 @@ export default {
         clearSelected() {
             this.$refs.selectableTable.clearSelected()
         },
+        async createInvoice(){
+            this.selectd.forEach(s => {
+                let invoice={
+                    date_of_repair:this.start_fix,
+                    start_fix:this.start_fix,
+                    end_fix:this.end_fix,
+                    invoice_status:'in progress',
+                    employee_id:s.id,
+                    appraisals_id:this.appraisalId
+                }
+                this.putdata(invoice)
+            });
+        },
+        async putdata(invoice){
+            await InvoiceStore.dispatch('createInvoice', invoice)
+        },
+        validDate(date){
+            return date < this.start_fix;
+        }
     }
 }
 </script>

@@ -14,7 +14,6 @@ export default{
     },
     async createUser(newUser){
         try{
-            console.log(newUser.name+' service');
             let url = `${api_endpoint}/api/user/create-employee`;
             let res = await Axios.post(url, newUser)
             
