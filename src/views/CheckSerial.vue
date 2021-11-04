@@ -1,21 +1,22 @@
 <template>
     <div>
         <h1>เช็ครหัสสินค้า</h1>
-        <span>รหัสสินค้า : </span>
-        <input type="text" v-model="serialNumber" placeholder="กรอกรหัสสินค้า">
+        <span class="num"> รหัสสินค้า : </span>
+        <input type="text" class="text" v-model="serialNumber" placeholder="  กรอกรหัสสินค้า">
         <!-- <div v-if="errors">
             <span class="error" v-if="!$v.serialNumber.minLength">รหัสสินค้าต้องมีอย่างน้อย {{ $v.serialNumber .$params.minLength.min }} ตัว</span>
         </div> -->
-        <button :disabled="this.serialNumber=='' || this.serialNumber.length<10" @click="check">Check</button>
-        <div>
+        <button :disabled="this.serialNumber=='' || this.serialNumber.length<10" class="button" @click="check">Check</button>
+        <div class="detail">
             <span>รายละเอียดการซ่อม : </span>
-            <input :disabled="valid" v-model="detail" type="text" placeholder="กรอกรายละเอียดการซ่อม">
+            <input class="valid" :disabled="valid" v-model="detail" type="text" placeholder="  กรอกรายละเอียดการซ่อม">
         </div>
-        <div>
+        <div class="price">
             <span>ราคา : </span>
-            <input :disabled="valid" v-model="price" type="number" placeholder="กรอกราคา">
+            <input class="boxprice" :disabled="valid" v-model="price" type="number" placeholder="  กรอกราคา">
         </div>
-        <button @click="submit">ยืนยัน</button>
+        <button class="button button1" @click="submit">ยืนยัน</button>
+        <button class="button button1" @click="cancel">ยกเลิก</button>
     </div>
 </template>
 
@@ -78,6 +79,9 @@ export default {
             }
             await AppraisalStore.dispatch('updateAppraisal', payload)
         },
+        cancel(){
+            this.$router.push('/')
+        }
         
     }
 }
@@ -90,4 +94,55 @@ input:disabled::-webkit-input-placeholder { /* WebKit browsers */
 /* span.error{
     color:red;
 } */
+h1{
+    padding-bottom: 80px;
+    padding-top: 150px;
+}
+input.text{
+    margin-right: 40px;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+input.valid{
+    margin-left: 10px;
+    border-radius: 5px;
+}
+input.boxprice{
+    margin-left: 10px;
+    border-radius: 5px;
+}
+div.detail{
+    padding-bottom: 50px;
+    padding-top: 80px;
+}
+div.price{
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+button.button{
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-family: "Lucida Console", "Courier New", monospace;
+    color: white;
+    background-color: darkslateblue;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 9px #999;
+}
+button:disabled{
+    background-color: rgb(203, 202, 206);
+    color: rgb(124, 119, 119);
+}
+/* .button:hover:not([disabled="disabled"]) {
+    background-color: rgb(48, 43, 77)
+} */
+.button1:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
 </style>

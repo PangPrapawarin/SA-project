@@ -2,7 +2,7 @@
     <div>
         <Header></Header>
         <h1>ใบเสร็จ</h1>
-        <p>จำนวนวันที่ซ่อม : {{ total_time }} วัน</p>
+        <p class="time">จำนวนวันที่ซ่อม : {{ total_time }} วัน</p>
         <p>สถานะใบเสร็จ : {{ bill_status }}</p>
         <p>การรับประกัน : {{ warranty_status }}</p>
         <span>รายชื่อพนักงาน : {{ names[0] }} {{ names[1] }} {{names[2] }}</span>
@@ -125,3 +125,55 @@ export default {
     }
 }
 </script>
+<style lang="scss" scoped>
+span.name{
+    margin-bottom: 50;
+}
+button.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: sienna;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  font-size: 30;
+  width: 200;
+  text-align: center;
+  padding: 20;
+  width: 100;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20;
+  transition: 0.5s;
+}
+
+.button5:hover span {
+  padding-right: 25;
+}
+
+.button5:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+div.button{
+    margin-bottom: 50;
+}
+p.time{
+    padding-bottom: 50;
+}
+</style>

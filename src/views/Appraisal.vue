@@ -10,9 +10,9 @@
         <p>รหัสสินค้า : {{product.serial_number}}</p>
         <p>รายละเอียดการซ่อม : {{detail}}</p>
         <p>ราคา : {{price}}</p>
-        <div>
-            <button @click="confirm">ส่งซ่อม</button>
-            <button @click="cancel">ยกเลิกส่งซ่อม</button>
+        <div class="button">
+            <button class="confirm button2" @click="confirm">ส่งซ่อม</button>
+            <button class="cancel button2" @click="cancel">ยกเลิกส่งซ่อม</button>
         </div>
         
     </div>
@@ -119,5 +119,41 @@ export default {
 }
 </script>
 <style>
+h1{
+    color: crimson;
+}
 
+button.confirm{
+  background-color: rgb(24, 128, 219);
+  border-radius: 10px;
+  border-color: white;
+  color: AliceBlue;
+  padding: 5px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 50px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+.button2:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+button.cancel{
+  background-color: rgb(24, 128, 219);
+  border-radius: 10px;
+  border-color: white;
+  color: AliceBlue;
+  padding: 5px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 30px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
 </style>
