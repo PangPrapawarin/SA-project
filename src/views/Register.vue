@@ -1,19 +1,20 @@
 <template>
     <div>
         <h1>Register</h1>
-        <div>
-            <span>ชื่อ: </span>
-            <input type="text" v-model="form.name" placeholder="กรอกชื่อ">
-        </div>
-        <div >
-            <span>อีเมลล์: </span>
-            <input type="email" v-model="form.email" placeholder="กรอกอีเมลล์">
-        </div>
-        <div>
-            <span>ที่อยู่: </span>
-            <input type="text" v-model="form.address" placeholder="กรอกที่อยู่">
-        </div>
-        <div>
+        <form @submit.prevent="register">
+            <div>
+                <span>ชื่อ: </span>
+                <input type="text" v-model="form.name" placeholder="กรอกชื่อ">
+            </div>
+            <div >
+                <span>อีเมลล์: </span>
+                <input type="email" v-model="form.email" placeholder="กรอกอีเมลล์">
+            </div>
+            <div>
+                <span>ที่อยู่: </span>
+                <input type="text" v-model="form.address" placeholder="กรอกที่อยู่">
+            </div>
+            <div>
             <span>เพศ: </span>
             <select 
                 v-model="form.sex">
@@ -21,16 +22,17 @@
                     {{sex.name}}
                 </option>
             </select>
-        </div>
-        <div>
-            <span>เงินเดือน: </span>
-            <input type="number" v-model="form.salary" placeholder="กรอกเงินเดือน" min="0">
-        </div>
-        <div>
-            <span>เบอร์โทร: </span>
-            <input type="text" v-model="form.phone" placeholder="กรอกเบอร์โทรศัพท์">
-        </div>
-        <button @click="register">register</button>
+            </div>
+            <div>
+                <span>เงินเดือน: </span>
+                <input type="number" v-model="form.salary" placeholder="กรอกเงินเดือน" min="0">
+            </div>
+            <div>
+                <span>เบอร์โทร: </span>
+                <input type="text" v-model="form.phone" placeholder="กรอกเบอร์โทรศัพท์">
+            </div>
+            <button>register</button>
+        </form>
         <button @click="clearForm">cancel</button>
     </div>
 </template>
@@ -46,7 +48,7 @@ export default {
                 email:'',
                 address:'',
                 sex:'',
-                salary:0,
+                salary:'',
                 phone:'',
             },
             sexs: [
@@ -56,7 +58,7 @@ export default {
                 {
                     name: "Female"
                 }
-            ]
+            ],
         }
         
     },

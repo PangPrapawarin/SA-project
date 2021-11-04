@@ -26,10 +26,16 @@
             <b-button size="sm" @click="clearSelected">ยกเลิกการเลือกทั้งหมด</b-button>
         </p>
         <div>
-            <span>วันที่เริ่มซ่อม : </span>
-            <input type="date" v-model="start_fix">
-            <span>วันที่สิ้นสุดการซ่อม : </span>
-            <input type="date" v-model="end_fix">
+            <span>ตั้งแต่วันที่</span>
+            <date-picker v-model="start_fix" type="date" 
+                :default-value="new Date()" :disabled-date="notBeforeToday"
+                placeholder='วันที่เริ่มซ่อม' 
+                :clearable=false ></date-picker>
+            <span>ถึง</span>
+            <date-picker v-model="end_fix" type="date"
+                :default-value="new Date()" :disabled-date="notBeforeTodaySelect" 
+                placeholder='วันที่ซ่อมเสร็จ' 
+                value-type="format" :clearable=false></date-picker>
         </div>
         <button @click="createBill">สร้างบิล</button>
     </div>
@@ -40,8 +46,11 @@
 import Header from '@/components/Header.vue'
 import UserStore from '@/store/User'
 import InvoiceStore from '@/store/Invoice'
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
 
 export default {
+    components: { DatePicker },
     created(){
         this.fetchUser()
     },
@@ -109,12 +118,11 @@ export default {
             this.$refs.selectableTable.clearSelected()
         },
         createInvoice(){
+            this.start_fix = this.start_fix.toISOString().split('T')[0]
             this.selected.forEach(select => {
                 let invoice={
-                    date_of_repair:this.start_fix,
                     start_fix:this.start_fix,
                     end_fix:this.end_fix,
-                    invoice_status:'in progress',
                     employee_id:select.id,
                     appraisals_id:this.appraisalId
                 }
@@ -124,10 +132,12 @@ export default {
         async putdata(invoice){
             await InvoiceStore.dispatch('createInvoice', invoice)
         },
-        // validDate(){
-        //     let date = new Date().toLocaleDateString()
-        //     return date < this.start_fix;
-        // },
+        notBeforeToday(date) {
+            return date < new Date();
+        },
+        notBeforeTodaySelect(date) {
+            return date < this.start_fix;
+        },
     }
 }
 </script>
