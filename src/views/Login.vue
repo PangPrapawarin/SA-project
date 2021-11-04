@@ -14,7 +14,7 @@ export default {
         return{
             form: {
                 username:'',
-                password:''
+                password:'',
             }
         }
     },
@@ -24,7 +24,7 @@ export default {
         },
         async register(){
             this.$router.push("/register")
-        }
+        },
     }
 }
 </script>

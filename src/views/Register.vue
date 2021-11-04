@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>Register</h1>
+<<<<<<< HEAD
         <div class="name">
             <span >ชื่อ: </span>
             <input class="nname" type="text"  v-model="form.name" placeholder="กรอกชื่อ">
@@ -14,6 +15,22 @@
             <input class="aaddress" type="text" v-model="form.address" placeholder="กรอกที่อยู่">
         </div>
         <div class="sex">
+=======
+        <form @submit.prevent="register">
+            <div>
+                <span>ชื่อ: </span>
+                <input type="text" v-model="form.name" placeholder="กรอกชื่อ">
+            </div>
+            <div >
+                <span>อีเมลล์: </span>
+                <input type="email" v-model="form.email" placeholder="กรอกอีเมลล์">
+            </div>
+            <div>
+                <span>ที่อยู่: </span>
+                <input type="text" v-model="form.address" placeholder="กรอกที่อยู่">
+            </div>
+            <div>
+>>>>>>> 626e490b03803424874aeb0540d47edf9ddd9db0
             <span>เพศ: </span>
             <select class="sex"
                 v-model="form.sex">
@@ -21,6 +38,7 @@
                     {{sex.name}}
                 </option>
             </select>
+<<<<<<< HEAD
         </div>
         <div class="salary">
             <span>เงินเดือน: </span>
@@ -32,6 +50,20 @@
         </div>
         <button class="register button3" @click="register">register</button>
         <button class="clear button3" @click="clearForm">cancel</button>
+=======
+            </div>
+            <div>
+                <span>เงินเดือน: </span>
+                <input type="number" v-model="form.salary" placeholder="กรอกเงินเดือน" min="0">
+            </div>
+            <div>
+                <span>เบอร์โทร: </span>
+                <input type="text" v-model="form.phone" placeholder="กรอกเบอร์โทรศัพท์">
+            </div>
+            <button>register</button>
+        </form>
+        <button @click="clearForm">cancel</button>
+>>>>>>> 626e490b03803424874aeb0540d47edf9ddd9db0
     </div>
 </template>
 
@@ -46,7 +78,7 @@ export default {
                 email:'',
                 address:'',
                 sex:'',
-                salary:0,
+                salary:'',
                 phone:'',
             },
             sexs: [
@@ -56,7 +88,7 @@ export default {
                 {
                     name: "Female"
                 }
-            ]
+            ],
         }
         
     },

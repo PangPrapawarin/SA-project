@@ -25,11 +25,25 @@
             <button class="button-74" size="sm" @click="selectAllRows">เลือกทั้งหมด</button>
             <button class=" button-74" size="sm" @click="clearSelected">ยกเลิกการเลือกทั้งหมด</button>
         </p>
+<<<<<<< HEAD
         <div >
             <span class="start">วันที่เริ่มซ่อม :  </span>
             <input class="date" type="date" v-model="start_fix">
             <span class="finish">วันที่สิ้นสุดการซ่อม :  </span>
             <input class="edate" type="date" v-model="end_fix">
+=======
+        <div>
+            <span>ตั้งแต่วันที่</span>
+            <date-picker v-model="start_fix" type="date" 
+                :default-value="new Date()" :disabled-date="notBeforeToday"
+                placeholder='วันที่เริ่มซ่อม' 
+                :clearable=false ></date-picker>
+            <span>ถึง</span>
+            <date-picker v-model="end_fix" type="date"
+                :default-value="new Date()" :disabled-date="notBeforeTodaySelect" 
+                placeholder='วันที่ซ่อมเสร็จ' 
+                value-type="format" :clearable=false></date-picker>
+>>>>>>> 626e490b03803424874aeb0540d47edf9ddd9db0
         </div>
         <button class="button-74" @click="createBill">สร้างบิล</button>
     </div>
@@ -40,8 +54,11 @@
 import Header from '@/components/Header.vue'
 import UserStore from '@/store/User'
 import InvoiceStore from '@/store/Invoice'
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
 
 export default {
+    components: { DatePicker },
     created(){
         this.fetchUser()
     },
@@ -109,12 +126,11 @@ export default {
             this.$refs.selectableTable.clearSelected()
         },
         createInvoice(){
+            this.start_fix = this.start_fix.toISOString().split('T')[0]
             this.selected.forEach(select => {
                 let invoice={
-                    date_of_repair:this.start_fix,
                     start_fix:this.start_fix,
                     end_fix:this.end_fix,
-                    invoice_status:'in progress',
                     employee_id:select.id,
                     appraisals_id:this.appraisalId
                 }
@@ -124,7 +140,16 @@ export default {
         async putdata(invoice){
             await InvoiceStore.dispatch('createInvoice', invoice)
         },
+<<<<<<< HEAD
        
+=======
+        notBeforeToday(date) {
+            return date < new Date();
+        },
+        notBeforeTodaySelect(date) {
+            return date < this.start_fix;
+        },
+>>>>>>> 626e490b03803424874aeb0540d47edf9ddd9db0
     }
 }
 </script>

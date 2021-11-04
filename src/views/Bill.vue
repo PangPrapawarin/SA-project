@@ -4,10 +4,17 @@
         <h1>ใบเสร็จ</h1>
         <p class="time">จำนวนวันที่ซ่อม : {{ total_time }} วัน</p>
         <p>สถานะใบเสร็จ : {{ bill_status }}</p>
+<<<<<<< HEAD
         <p>การรับประกัน : {{warranty_status}}</p>
         <span class="name">รายชื่อพนักงาน : {{ names[0] }} {{ names[1] }} {{names[2] }}</span>
         <div class="button">
             <button class="button button5 " :disabled="bill_status=='ชำระเงินแล้ว' || warranty_status=='อยู่ในการรับประกัน'" @click="pay"><span>จ่ายเงิน</span></button>
+=======
+        <p>การรับประกัน : {{ warranty_status }}</p>
+        <span>รายชื่อพนักงาน : {{ names[0] }} {{ names[1] }} {{names[2] }}</span>
+        <div>
+            <button :disabled="bill_status=='ชำระเงินแล้ว' || warranty_status=='อยู่ในการรับประกัน'" @click="pay">จ่ายเงิน</button>
+>>>>>>> 626e490b03803424874aeb0540d47edf9ddd9db0
         </div>
     </div>
 </template>
@@ -24,15 +31,16 @@ export default {
     async created(){
         await this.fetchBill()
         await this.fetchInvoice()
+        await this.fetchAppraisal(this.appraisalId)
     },
     data(){
         return{
             total_time:0 ,
             bill_status:'',
             names:[],
-            billId:this.$route.params.id,
+            billId:'',
             userId:[],
-            appraisalId:'',
+            appraisalId:this.$route.params.id,
             warranty_id:'',
             warranty_status:''
         }
@@ -43,10 +51,10 @@ export default {
     methods:{
         async fetchBill(){
             let bills = await BillStore.dispatch("fetchBill")
-            console.log(bills);
             await bills.forEach(bill =>{
-                if(this.billId==bill.id){
+                if(this.appraisalId==bill.appraisals_id){
                     this.bill_status=bill.bill_status
+                    this.billId=bill.id
                 }
             })
         },
@@ -54,9 +62,8 @@ export default {
             let invoices = await InvoiceStore.dispatch("fetchInvoice")
             let i = 0
             await invoices.forEach(invoice =>{
-                if(this.billId==invoice.appraisals_id){
+                if(this.appraisalId==invoice.appraisals_id){
                     this.userId[i] = invoice.employee_id
-                    this.appraisalId = invoice.appraisals_id
                     let start = new Date(invoice.start_fix)
                     let end = new Date(invoice.end_fix)
                     var Difference_In_Time = end.getTime() - start.getTime();
@@ -90,18 +97,16 @@ export default {
                 }
                 return true
             })
-            this.fetchAppraisal(this.appraisalId)
         },
         async pay(){
-            
-            await BillStore.dispatch("updateBill",this.billId)
+            await BillStore.dispatch("updateBill", this.billId)
             location.reload();
             this.$swal("จ่ายเงินเสร็จสิ้น","","success")
         },
         async fetchAppraisal(appraisalId){
             let appraisals = await AppraisalStore.dispatch("fetchApprisal")
             appraisals.forEach(appraisal=>{
-                if (appraisalId===appraisal.id) {
+                if (appraisalId==appraisal.id) {
                     this.fetchWarranty(appraisal.warranties_id)
                 }
             })
@@ -114,7 +119,6 @@ export default {
                     var dateFrom = warranty.warranty_start_date
                     var dateTo = warranty.warranty_end_date;
                     var dateCheck = new Date().toLocaleDateString("en-CA")
-                    // var dateCheck = '2021-10-30'
                     if(dateCheck <= dateTo && dateCheck >= dateFrom){
                         this.warranty_status = 'อยู่ในการรับประกัน'
                     }else{
