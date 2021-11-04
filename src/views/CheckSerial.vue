@@ -56,11 +56,14 @@ export default {
                 });
         },
         async submit(){
-            if (this.price!=='' && this.detail!=='') {
+            if (this.price!=='' && this.detail!==''&& this.price>0 ) {
                 await this.putData(this.id,this.price, this.detail)
                 this.$router.push('/appraisal/'+ this.serialNumber)
                 this.$swal("กรอกข้อมูลเรียบร้อย","","success" )
-            }else if(this.valid){
+            }else if(this.price<=0 && this.price!==''){
+                this.$swal("กรอกราคาให้ถูกต้อง","","error")
+            }
+            else if(this.valid){
                 this.$swal("กรุณาเช็ครหัสสินค้าก่อน","","error")
             }
             else{

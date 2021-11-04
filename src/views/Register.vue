@@ -51,10 +51,10 @@ export default {
             },
             sexs: [
                 {
-                    name: "male"
+                    name: "Male"
                 },
                 {
-                    name: "female"
+                    name: "Female"
                 }
             ]
         }
@@ -65,7 +65,7 @@ export default {
     },
     methods:{
         async register(){
-            if (this.form.name!='' && this.form.email!=='' && this.form.address!=='' && this.form.sex!=='' && this.form.salary!=='' && this.form.phone!=='') {
+            if (this.form.name!='' && this.form.email!=='' && this.form.address!=='' && this.form.sex!=='' && this.form.salary!=='' && this.form.phone!=='' && this.form.salary>0) {
                 let newUser ={
                     name:this.form.name,
                     address:this.form.address,
@@ -74,7 +74,6 @@ export default {
                     phone:this.form.phone,
                     email:this.form.email
                 }
-                console.log(newUser.name);
                 await UserStore.dispatch('createUser', newUser)
                 this.$swal("สมัครเสร็จสิ้น", "","success")
                 this.$router.push("/")
