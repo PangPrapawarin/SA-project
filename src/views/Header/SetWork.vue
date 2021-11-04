@@ -27,7 +27,7 @@
         </p>
         <div>
             <span>วันที่เริ่มซ่อม : </span>
-            <input type="date" v-model="start_fix">
+            <input type="date" v-model="start_fix" :disabled-date="notBeforeToday">
             <span>วันที่สิ้นสุดการซ่อม : </span>
             <input type="date" v-model="end_fix" :disabled-date="validDate">
         </div>
@@ -80,6 +80,7 @@ export default {
                     cancelButtonText: 'ไม่'
                 }).then((r)=>{
                     if(r.isConfirmed){
+                        this.createInvoice()
                         this.$router.push('/bill/' + this.appraisalId)
                     }
                 })
@@ -100,7 +101,6 @@ export default {
             if(this.selected.length > 3){
                 this.$swal("เลือกพนักงานเกินกำหนด","ไม่เกิน 3 คน","error")
             }
-            console.log(this.selected);
         },
         selectAllRows() {
             this.$refs.selectableTable.selectAllRows()
@@ -108,14 +108,14 @@ export default {
         clearSelected() {
             this.$refs.selectableTable.clearSelected()
         },
-        async createInvoice(){
-            this.selectd.forEach(s => {
+        createInvoice(){
+            this.selected.forEach(select => {
                 let invoice={
                     date_of_repair:this.start_fix,
                     start_fix:this.start_fix,
                     end_fix:this.end_fix,
                     invoice_status:'in progress',
-                    employee_id:s.id,
+                    employee_id:select.id,
                     appraisals_id:this.appraisalId
                 }
                 this.putdata(invoice)
@@ -124,9 +124,11 @@ export default {
         async putdata(invoice){
             await InvoiceStore.dispatch('createInvoice', invoice)
         },
-        validDate(date){
+        validDate(){
+            let date = new Date().toLocaleDateString()
+            console.log(date);
             return date < this.start_fix;
-        }
+        },
     }
 }
 </script>

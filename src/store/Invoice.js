@@ -28,7 +28,7 @@ export default new Vuex.Store({
             return payload.data
         },
         async createInvoice({ commit }, invoice){
-            let payload = await UserService.createInvoice(invoice);
+            let payload = await InvoiceService.createInvoice(invoice);
             commit("push", payload.data)
         },
     }
