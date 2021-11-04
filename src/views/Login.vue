@@ -1,16 +1,8 @@
 <template>
     <div>
         <h1>Air dryer maintenance</h1>
-        <div class="name">
-            <span>Username: </span>
-            <input type="text" v-model="form.username" placeholder="    กรอกชื่อผู้ใช้">
-        </div>
-        <div class="password"> 
-            <span>Password: </span>
-            <input type="password" v-model="form.password" placeholder="    กรอกรหัสผ่าน">
-        </div>
-        <button @click=" login">login</button>
-        <button @click="register">register</button>
+        <button class="check button button1" @click="login">เช็ครหัสสินค้า</button>
+        <button class="register button button1"  @click="register">เพิ่มพนักงาน</button>
     </div>
   
   
@@ -25,22 +17,10 @@ export default {
                 password:''
             }
         }
-        
     },
     methods:{
         async login(){
-            if (this.form.username!=='' && this.form.password!=='') {
-                this.$swal("ล็อกอินสำเร็จ","ยินดีต้อนรับ", "success")
-                this.$router.push("/check-serial")
-            }else if(this.form.username==='' && this.form.password===""){
-                this.$swal("กรุณากรอกข้อมูล","","error")
-            }
-            else if(this.form.username===''){
-                this.$swal("กรุณากรอกชื่อผู้ใช้","","error")
-            }else if(this.form.password===""){
-                this.$swal("กรุณากรอกรหัสผ่าน","","error")
-            }
-            
+            this.$router.push("/check-serial")
         },
         async register(){
             this.$router.push("/register")
@@ -50,27 +30,55 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1{ padding-top: 150px;
+h1{ padding-top: 200px;
     font-family: "Times New Roman", Times, serif;
     font-size: 60px;
     color: firebrick;
     font-weight: bold;
+    padding-bottom: 150px;
 }
-div.name{
-    padding-top: 100px;
-    font-family: "Lucida Console", "Courier New", monospace;
-    
+
+button.register{
+   background-color: crimson; 
+    border-radius: 15px;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 40px 50px;
+    transition-duration: 0.4s;
+    cursor: pointer;
 }
-div.password{
-    padding-top: 70px;
-    padding-bottom: 100px;
-    font-family: "Lucida Console", "Courier New", monospace;
+button.check{
+    background-color: crimson; 
+    border-radius: 15px;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 40px 50px;
+    transition-duration: 0.4s;
+    cursor: pointer;
 }
-button{
-    padding-right: 30px;
-    padding-left: 30px;
-    padding-bottom: 12px;
-    padding-top: 12px;
-    font-family: "Lucida Console", "Courier New", monospace;
+.button1 {
+  
+  color: wheat;
+  border: 2px solid  crimson;
 }
+
+.button1:hover {
+  background-color: crimson;
+  color: white
+}
+.button1:active {
+  background-color: wheat;
+  box-shadow: 0 5px rgb(255, 255, 255);
+  transform: translateY(4px);
+}
+
+
 </style>

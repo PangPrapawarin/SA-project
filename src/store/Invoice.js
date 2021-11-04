@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import BillService from '@/services/BillService'
+import InvoiceService from '@/services/InvoiceService'
 
 Vue.use(Vuex)
 
@@ -10,7 +10,7 @@ export default new Vuex.Store({
     },
     
     getters: {
-        bills: (state) => state.data
+        invoices: (state) => state.data
     },
 
     mutations: {
@@ -19,8 +19,8 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        async fetchBill({ commit }) {
-            let payload = await BillService.getBill();
+        async fetchInvoice({ commit }) {
+            let payload = await InvoiceService.getInvoice();
             commit("fetch", payload)
             return payload.data
         },

@@ -1,37 +1,37 @@
 <template>
     <div>
         <h1>Register</h1>
-        <div>
-            <span>ชื่อ: </span>
-            <input type="text" v-model="form.name" placeholder="กรอกชื่อ">
+        <div class="name">
+            <span >ชื่อ: </span>
+            <input class="nname" type="text"  v-model="form.name" placeholder="กรอกชื่อ">
         </div>
-        <div >
+        <div class="email" >
             <span>อีเมลล์: </span>
-            <input type="email" v-model="form.email" placeholder="กรอกอีเมลล์">
+            <input class="eemail" type="email" v-model="form.email" placeholder="กรอกอีเมลล์">
         </div>
-        <div>
+        <div class="address">
             <span>ที่อยู่: </span>
-            <input type="text" v-model="form.address" placeholder="กรอกที่อยู่">
+            <input class="aaddress" type="text" v-model="form.address" placeholder="กรอกที่อยู่">
         </div>
-        <div>
+        <div class="sex">
             <span>เพศ: </span>
-            <select 
+            <select class="sex"
                 v-model="form.sex">
                 <option v-for="(sex, index) in sexs" :value="sex.name" :key="index"> 
                     {{sex.name}}
                 </option>
             </select>
         </div>
-        <div>
+        <div class="salary">
             <span>เงินเดือน: </span>
-            <input type="number" v-model="form.salary" placeholder="กรอกเงินเดือน" min="0">
+            <input class="ssalary" type="number" v-model="form.salary" placeholder="กรอกเงินเดือน" min="0">
         </div>
-        <div>
+        <div class="tell">
             <span>เบอร์โทร: </span>
-            <input type="text" v-model="form.phone" placeholder="กรอกเบอร์โทรศัพท์">
+            <input class="ttell" type="text" v-model="form.phone" placeholder="กรอกเบอร์โทรศัพท์">
         </div>
-        <button @click="register">register</button>
-        <button @click="clearForm">cancel</button>
+        <button class="register" @click="register">register</button>
+        <button class="clear" @click="clearForm">cancel</button>
     </div>
 </template>
 
@@ -46,16 +46,14 @@ export default {
                 email:'',
                 address:'',
                 sex:'',
-                salary:'',
+                salary:0,
                 phone:'',
             },
             sexs: [
                 {
-                    id: 1,
                     name: "male"
                 },
                 {
-                    id: 2,
                     name: "female"
                 }
             ]
@@ -74,8 +72,9 @@ export default {
                     sex:this.form.sex,
                     salary:this.form.salary,
                     phone:this.form.phone,
-                    email:this.form.email,
+                    email:this.form.email
                 }
+                console.log(newUser.name);
                 await UserStore.dispatch('createUser', newUser)
                 this.$swal("สมัครเสร็จสิ้น", "","success")
                 this.$router.push("/")
@@ -100,5 +99,58 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+h1{
+    padding-bottom: 50px;
+    font-family: "Times New Roman", Times, serif;
+}
+input.nname{
+    border-radius: 10px;
+    margin-left: 20px;
+}
+input.eemail{
+    border-radius: 10px;
+    margin-left: 5px;
+}
+input.aaddress{
+    border-radius: 10px;
+    margin-left: 5px;
+}
+input.ttell{
+    border-radius: 10px;
+    margin-left: 5px;
+}
+input.ssalary{
+    border-radius: 10px;
+    margin-left: 5px;
+}
+select.sex{
+    border-radius: 5px;
+    margin-left: 5px;
+}
+div.name{
+    padding-bottom: 30px;
+}
+div.address{
+    padding-bottom: 30px;
+}
+div.email{
+    padding-bottom: 30px;
+}
+div.sex{
+    padding-bottom: 30px;
+}
+div.salary{
+    padding-bottom: 30px;
+}
+div.tell{
+    padding-bottom: 40px;
+}
+button.register{
+    margin-right: 80px;
+    border-radius: 10px;
+}
+button.clear{
+    border-radius: 10px;
+    margin-left: 80px;
+}
 </style>>
