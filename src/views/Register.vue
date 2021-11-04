@@ -30,8 +30,8 @@
             <span>เบอร์โทร: </span>
             <input class="ttell" type="text" v-model="form.phone" placeholder="กรอกเบอร์โทรศัพท์">
         </div>
-        <button class="register" @click="register">register</button>
-        <button class="clear" @click="clearForm">cancel</button>
+        <button class="register button3" @click="register">register</button>
+        <button class="clear button3" @click="clearForm">cancel</button>
     </div>
 </template>
 
@@ -147,9 +147,53 @@ div.tell{
 button.register{
     margin-right: 80px;
     border-radius: 10px;
+      background-color: DarkSlateBlue;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16;
+  margin: 4 2;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; 
+  transition-duration: 0.4s;
 }
 button.clear{
-    border-radius: 10px;
-    margin-left: 80px;
+  border-radius: 10px;
+  margin-left: 80px;
+  background-color: DarkSlateBlue;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4 2;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+// .button {
+//   background-color: #4CAF50; /* Green */
+//   border: none;
+//   color: white;
+//   padding: 15px 32px;
+//   text-align: center;
+//   text-decoration: none;
+//   display: inline-block;
+//   font-size: 16px;
+//   margin: 4px 2px;
+//   cursor: pointer;
+//   -webkit-transition-duration: 0.4s; /* Safari */
+//   transition-duration: 0.4s;
+// }
+
+
+
+.button3:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 </style>>

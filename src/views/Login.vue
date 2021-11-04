@@ -79,6 +79,7 @@ button.check{
   box-shadow: 0 5px rgb(255, 255, 255);
   transform: translateY(4px);
 }
-
+template{
+ background-image: url("C:\Users\Asus\Desktop\SA-project-frontend\src\assets\gif.gif"); }
 
 </style>

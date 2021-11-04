@@ -22,16 +22,16 @@
             </template>
         </b-table>
         <p>
-            <b-button size="sm" @click="selectAllRows">เลือกทั้งหมด</b-button>
-            <b-button size="sm" @click="clearSelected">ยกเลิกการเลือกทั้งหมด</b-button>
+            <button class="button-74" size="sm" @click="selectAllRows">เลือกทั้งหมด</button>
+            <button class=" button-74" size="sm" @click="clearSelected">ยกเลิกการเลือกทั้งหมด</button>
         </p>
-        <div>
-            <span>วันที่เริ่มซ่อม : </span>
-            <input type="date" v-model="start_fix">
-            <span>วันที่สิ้นสุดการซ่อม : </span>
-            <input type="date" v-model="end_fix">
+        <div >
+            <span class="start">วันที่เริ่มซ่อม :  </span>
+            <input class="date" type="date" v-model="start_fix">
+            <span class="finish">วันที่สิ้นสุดการซ่อม :  </span>
+            <input class="edate" type="date" v-model="end_fix">
         </div>
-        <button @click="createBill">สร้างบิล</button>
+        <button class="button-74" @click="createBill">สร้างบิล</button>
     </div>
     
 </template>
@@ -124,10 +124,55 @@ export default {
         async putdata(invoice){
             await InvoiceStore.dispatch('createInvoice', invoice)
         },
-        // validDate(){
-        //     let date = new Date().toLocaleDateString()
-        //     return date < this.start_fix;
-        // },
+       
     }
 }
 </script>
+
+<style lang="scss" scoped>
+
+input.date{
+    
+    border-radius: 5px;
+    
+}
+input.edate{
+  
+    border-radius: 5px;
+}
+
+.button-74 {
+  
+  background-color: #fbeee0;
+  border: 2px solid #422800;
+  border-radius: 30px;
+  box-shadow: #422800 4px 4px 0 0;
+  color: #422800;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 200;
+  font-size: 18px;
+  line-height: 30px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-74:hover {
+  background-color: orange;
+}
+
+.button-74:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+  .button-74 {
+    min-width: 120px;
+    padding: 0 25px;
+  }
+}
+</style>
