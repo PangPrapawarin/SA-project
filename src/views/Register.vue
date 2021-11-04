@@ -65,7 +65,7 @@ export default {
     },
     methods:{
         async register(){
-            if (this.form.name!='' && this.form.email!=='' && this.form.address!=='' && this.form.sex!=='' && this.form.salary!=='' && this.form.phone!=='') {
+            if (this.form.name!='' && this.form.email!=='' && this.form.address!=='' && this.form.sex!=='' && this.form.salary!=='' && this.form.phone!=='' && this.form.salary>0) {
                 let newUser ={
                     name:this.form.name,
                     address:this.form.address,

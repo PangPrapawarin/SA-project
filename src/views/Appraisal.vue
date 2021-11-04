@@ -22,6 +22,7 @@ import Header from '@/components/Header.vue'
 import ProductStore from '@/store/Product'
 import WarrantyStore from '@/store/Warranty'
 import AppraisalStore from '@/store/Appraisal'
+import BillStore from '@/store/Bill'
 
 export default {
     created(){
@@ -40,7 +41,8 @@ export default {
             },
             warranty:'',
             detail:'',
-            price:''
+            price:'',
+            bill:'รอชำระเงิน'
         }
     },
     components:{
@@ -72,11 +74,11 @@ export default {
                     var dateFrom = warranty.warranty_start_date
                     var dateTo = warranty.warranty_end_date;
                     var dateCheck = new Date().toLocaleDateString("en-CA")
-                    // var dateCheck = '2021-10-30'
                     
                     if(dateCheck <= dateTo && dateCheck >= dateFrom){
                         this.warranty = 'อยู่ในการรับประกัน'
                         this.price = 'ไม่เสียค่าใช้จ่าย'
+                        this.bill = 'ชำระเงินแล้ว'
                     }else{
                         this.warranty = 'ไม่อยู่ในการรับประกัน'
                     }
@@ -94,7 +96,11 @@ export default {
                     cancelButtonText: 'ไม่'
                 }).then((r)=>{
                     if(r.isConfirmed){
-                        this.$router.push('/set-work/'+this.product.id)
+                        let bill={
+                            appraisals_id:this.product.id,
+                            bill_status:this.bill,
+                        }
+                        this.putData(bill)
                     }
                 })
             }else{
@@ -105,8 +111,9 @@ export default {
         async cancel(){
             this.$router.push("/check-serial")
         },
-        loadOnce:function(){
-            location.reload();
+        async putData(bill){
+            await BillStore.dispatch("createBill",bill)
+            this.$router.push('/set-work/'+this.product.id)
         }
     }
 }

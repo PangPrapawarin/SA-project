@@ -2,14 +2,12 @@
     <div>
         <Header></Header>
         <h1>ใบเสร็จ</h1>
-        <p>วันที่จ่าย : {{ paid_date }}</p>
-        <p>เวลาที่จ่าย : {{ paid_time }}</p>
-        <p>จำนวนวันที่ซ่อม : {{ total_time }}</p>
+        <p>จำนวนวันที่ซ่อม : {{ total_time }} วัน</p>
         <p>สถานะใบเสร็จ : {{ bill_status }}</p>
         <p>การรับประกัน : {{warranty_status}}</p>
         <span>รายชื่อพนักงาน : {{ names[0] }} {{ names[1] }} {{names[2] }}</span>
         <div>
-            <button :disabled="bill_status=='paid' || warranty_status=='อยู่ในการรับประกัน'" @click="pay">จ่ายเงิน</button>
+            <button :disabled="bill_status=='ชำระเงินแล้ว' || warranty_status=='อยู่ในการรับประกัน'" @click="pay">จ่ายเงิน</button>
         </div>
     </div>
 </template>
@@ -29,9 +27,7 @@ export default {
     },
     data(){
         return{
-            paid_date:'',
-            paid_time:'',
-            total_time:'',
+            total_time:0 ,
             bill_status:'',
             names:[],
             billId:this.$route.params.id,
@@ -47,12 +43,10 @@ export default {
     methods:{
         async fetchBill(){
             let bills = await BillStore.dispatch("fetchBill")
+            console.log(bills);
             await bills.forEach(bill =>{
                 if(this.billId==bill.id){
                     this.bill_status=bill.bill_status
-                    const arr = bill.paid_date.split(" ")
-                    this.paid_date = arr[0]
-                    this.paid_time = arr[1]
                 }
             })
         },
@@ -63,11 +57,11 @@ export default {
                 if(this.billId==invoice.appraisals_id){
                     this.userId[i] = invoice.employee_id
                     this.appraisalId = invoice.appraisals_id
-                    // let start = invoice.start_fix
-                    // let end = invoice.end_fix
+                    let start = new Date(invoice.start_fix)
+                    let end = new Date(invoice.end_fix)
+                    var Difference_In_Time = end.getTime() - start.getTime();
+                    this.total_time =  (Difference_In_Time / (1000 * 3600 * 24))+1;
                     i++
-                    // console.log(start-end);
-
                 }
             })
             let users = await UserStore.dispatch("fetchUser")
@@ -99,6 +93,8 @@ export default {
             this.fetchAppraisal(this.appraisalId)
         },
         async pay(){
+            
+            await BillStore.dispatch("updateBill",this.billId)
             location.reload();
             this.$swal("จ่ายเงินเสร็จสิ้น","","success")
         },

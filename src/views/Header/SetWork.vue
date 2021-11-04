@@ -27,9 +27,9 @@
         </p>
         <div>
             <span>วันที่เริ่มซ่อม : </span>
-            <input type="date" v-model="start_fix" :disabled-date="notBeforeToday">
+            <input type="date" v-model="start_fix">
             <span>วันที่สิ้นสุดการซ่อม : </span>
-            <input type="date" v-model="end_fix" :disabled-date="validDate">
+            <input type="date" v-model="end_fix">
         </div>
         <button @click="createBill">สร้างบิล</button>
     </div>
@@ -124,11 +124,10 @@ export default {
         async putdata(invoice){
             await InvoiceStore.dispatch('createInvoice', invoice)
         },
-        validDate(){
-            let date = new Date().toLocaleDateString()
-            console.log(date);
-            return date < this.start_fix;
-        },
+        // validDate(){
+        //     let date = new Date().toLocaleDateString()
+        //     return date < this.start_fix;
+        // },
     }
 }
 </script>
